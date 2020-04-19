@@ -48,4 +48,10 @@ public class OuvrageService implements IOuvrageService {
 		
 	}
 
+	@Override
+	public List<String> genres() {
+		 List<String> genres = ouvrageRepo.findRubriques();
+		return genres;
+	}
+
 }

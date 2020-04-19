@@ -9,5 +9,6 @@ public interface IOuvrageService {
 	void modifierOuvrage(Ouvrage ouvrage);
 	void supprimerOuvrage(Ouvrage ouvrage);
 	void ajouterOuvrage(Ouvrage ouvrage);
+	List<String> genres();
 
 }

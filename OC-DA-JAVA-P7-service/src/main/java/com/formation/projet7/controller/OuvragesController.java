@@ -34,5 +34,15 @@ public class OuvragesController {
 		Ouvrage ouvrage = ouvrageService.obtenirOuvrage(id);
 		return new ResponseEntity<>(ouvrage, HttpStatus.OK);
 	}
+	
+
+	@GetMapping("/ouvrage/rubriques")
+	public List<String> toutesLesRubriques(){
+		
+		List<String> genres = ouvrageService.genres();
+		return genres;
+	}
+	
+	
 
 }
