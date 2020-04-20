@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.formation.projet7.model.Exemplaire;
+import com.formation.projet7.model.ExemplaireDispo;
 import com.formation.projet7.model.Ouvrage;
 import com.formation.projet7.repository.ExemplaireRepo;
 import com.formation.projet7.service.IExemplaireService;
@@ -44,6 +45,24 @@ public class ExemplaireService implements IExemplaireService {
 	public void supprimerExemplaire(Exemplaire exemplaire) {
 		exemplaireRepo.delete(exemplaire);
 		
+	}
+
+	@Override
+	public List<ExemplaireDispo> exemplairesDisponibles() {
+		List<ExemplaireDispo> exemplairesDispos = exemplaireRepo.selectExemplairesDispos();
+		return exemplairesDispos;
+	}
+
+	@Override
+	public List<Exemplaire> exemplairesDispos() {
+		List <Exemplaire> exemplairesDispos = exemplaireRepo.findByDisponible(true);
+		return exemplairesDispos;
+	}
+
+	@Override
+	public List<Exemplaire> exemplairesDisposParOuvrage(Integer id) {
+		List <Exemplaire> exemplairesDisposParOuvrage = exemplaireRepo.findByDisponibleAndOuvrageId(true, id);
+		return exemplairesDisposParOuvrage;
 	}
 
 }
