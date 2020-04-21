@@ -30,7 +30,7 @@ public class UserService implements IUserService {
 	@Override
 	public Utilisateur obtenirUser(String string) {
 		
-		//User user = userRepo.findByIdentity(string);
+		Utilisateur user = userRepo.findByIdentity(string);
 		return null;
 	}
 
@@ -38,6 +38,14 @@ public class UserService implements IUserService {
 	public Utilisateur obtenirUserParEmail(String email) {
 
 		Utilisateur user = userRepo.findByUsername(email);
+		return user;
+	}
+	
+	@Override
+	public Utilisateur obtenirUserParlogin(String email, String password) {
+
+		Utilisateur user = userRepo.findByUsernameAndPassword(email, password);
+				
 		return user;
 	}
 

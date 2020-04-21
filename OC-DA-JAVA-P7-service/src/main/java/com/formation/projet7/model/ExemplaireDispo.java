@@ -23,6 +23,15 @@ public class ExemplaireDispo {
 		this.titre = titre;
 		this.exemplaire_id = exemplaire_id;
 	}
+	
+	public ExemplaireDispo(String auteur_nom, String auteur_prenom, String edition) {
+		super();
+		
+		this.auteur_nom = auteur_nom;
+		this.auteur_prenom = auteur_prenom;
+		this.edition = edition;
+		
+	}
 
 	public Integer getOuvrageId() {
 		return ouvrageId;

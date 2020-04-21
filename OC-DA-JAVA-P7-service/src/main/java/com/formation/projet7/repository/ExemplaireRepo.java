@@ -10,13 +10,13 @@ import com.formation.projet7.model.ExemplaireDispo;
 
 public interface ExemplaireRepo extends JpaRepository<Exemplaire, Integer> {
 	
-	
+	/*
 	// A revoir 
 	@Query(value ="SELECT "
-  			+ "new ExemplaireDispo(o.id, o.auteur_nom, o.auteur_prenom, o.edition, o.titre, e.id) "
-			+ "FROM ouvrage o, exemplaire e", nativeQuery = true)
+  			+ "new com.formation.projet7.model.ExemplaireDispo(o.auteur_nom, o.auteur_prenom, o.edition) "
+			+ "FROM ouvrage o")
 	List<ExemplaireDispo> selectExemplairesDispos();
-
+*/
 	List<Exemplaire> findByDisponible(boolean b);
 	
 	List<Exemplaire> findByDisponibleAndOuvrageId(boolean b, Integer id);

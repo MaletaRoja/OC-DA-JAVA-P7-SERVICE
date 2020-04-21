@@ -13,5 +13,6 @@ public interface IUserService {
 	void ajouterUser(Utilisateur user);
 	void modifierUser(Utilisateur user);
 	void supprimerUser(Utilisateur user);
+	Utilisateur obtenirUserParlogin(String email, String password);
 	
 }

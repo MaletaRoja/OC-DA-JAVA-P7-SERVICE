@@ -46,13 +46,16 @@ public class ExemplaireService implements IExemplaireService {
 		exemplaireRepo.delete(exemplaire);
 		
 	}
-
+	
+	/*
 	@Override
 	public List<ExemplaireDispo> exemplairesDisponibles() {
 		List<ExemplaireDispo> exemplairesDispos = exemplaireRepo.selectExemplairesDispos();
 		return exemplairesDispos;
 	}
-
+	
+	*/
+	
 	@Override
 	public List<Exemplaire> exemplairesDispos() {
 		List <Exemplaire> exemplairesDispos = exemplaireRepo.findByDisponible(true);
@@ -64,5 +67,7 @@ public class ExemplaireService implements IExemplaireService {
 		List <Exemplaire> exemplairesDisposParOuvrage = exemplaireRepo.findByDisponibleAndOuvrageId(true, id);
 		return exemplairesDisposParOuvrage;
 	}
+
+	
 
 }

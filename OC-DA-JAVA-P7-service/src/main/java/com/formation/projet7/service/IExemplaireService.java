@@ -13,7 +13,7 @@ public interface IExemplaireService {
 	void ajouterExemplaire(Exemplaire exemplaire);
 	void modifierExemplaire(Exemplaire exemplaire);
 	void supprimerExemplaire(Exemplaire exemplaire);
-	List<ExemplaireDispo> exemplairesDisponibles();
+	//List<ExemplaireDispo> exemplairesDisponibles();
 	List<Exemplaire> exemplairesDispos();
 	List<Exemplaire> exemplairesDisposParOuvrage(Integer id);
 	
