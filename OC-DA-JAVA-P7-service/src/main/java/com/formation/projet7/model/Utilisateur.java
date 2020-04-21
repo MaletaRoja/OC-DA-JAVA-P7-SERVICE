@@ -1,5 +1,6 @@
 package com.formation.projet7.model;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -26,7 +27,7 @@ public class Utilisateur implements Serializable {
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="emprunteur")
-	private List<Emprunt> emprunts;
+	private List<Emprunt> emprunts = new ArrayList();
 	
 	
 	private static final long serialVersionUID = 1L;
