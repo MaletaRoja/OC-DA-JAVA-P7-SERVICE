@@ -18,7 +18,7 @@ import com.formation.projet7.security.JWTGenerator;
 import com.formation.projet7.service.jpa.UserService;
 
 @RestController
-@RequestMapping("/connexion")
+@RequestMapping("/")
 public class TokenController {
 	
 	@Autowired
@@ -34,7 +34,7 @@ public class TokenController {
 		this.jwtGenerator = jwtGenerator;
 	}
 	
-	@PostMapping("/")
+	@PostMapping("connexion/")
 	public ResponseEntity<String> generate(@RequestBody final Login login){
 		
 		Utilisateur jwtUser = new Utilisateur();
