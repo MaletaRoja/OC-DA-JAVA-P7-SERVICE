@@ -1,43 +1,26 @@
 package com.formation.projet7.model;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.Date;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
-@Entity
-public class Emprunt implements Serializable {
-	
+public class EmpruntAux {
 
-	@Id
-	@GeneratedValue
 	private Integer id;
-	
-	@ManyToOne
 	private Exemplaire exemplaire;
-	
-	
-	@ManyToOne
 	private Utilisateur emprunteur;
-
 	private LocalDateTime debut;
 	private LocalDateTime fin;
 	private boolean prolongation; 
 	private boolean actif;
 	
-	private static final long serialVersionUID = 1L;
-	
-	public Emprunt() {
+	public EmpruntAux() {
 		
 	}
 
-	public Emprunt(Integer id, Exemplaire exemplaire, Utilisateur emprunteur, LocalDateTime debut, LocalDateTime fin,
+	public EmpruntAux(Integer id, Exemplaire exemplaire, Utilisateur emprunteur, LocalDateTime debut, LocalDateTime fin,
 			boolean prolongation, boolean actif) {
 		super();
 		this.id = id;
@@ -47,6 +30,17 @@ public class Emprunt implements Serializable {
 		this.fin = fin;
 		this.prolongation = prolongation;
 		this.actif = actif;
+	}
+	
+		public EmpruntAux(Emprunt emprunt) {
+		
+		this.id = emprunt.getId();
+		this.exemplaire = emprunt.getExemplaire();
+		this.emprunteur = emprunt.getEmprunteur();
+		this.debut = emprunt.getDebut();
+		this.fin = emprunt.getFin();
+		this.prolongation = emprunt.isProlongation();
+		this.actif = emprunt.isActif();
 	}
 
 	public Integer getId() {
@@ -104,7 +98,6 @@ public class Emprunt implements Serializable {
 	public void setActif(boolean actif) {
 		this.actif = actif;
 	}
-
 	
 	
 }

@@ -11,25 +11,12 @@ public class OuvrageAux {
 	private String auteur_prenom;
 	private String edition;
 	private String genre;
-	private Exemplaire[] exemplaires;
+	private ExemplaireAux[] exemplairesAux;
 	
 	public OuvrageAux() {
 		
 	}
 
-	public OuvrageAux(Integer id, String titre, String auteur_nom, String auteur_prenom, String edition, String genre,
-			Exemplaire[] exemplaires) {
-		
-		
-		this.id = id;
-		this.titre = titre;
-		this.auteur_nom = auteur_nom;
-		this.auteur_prenom = auteur_prenom;
-		this.edition = edition;
-		this.genre = genre;
-		this.exemplaires = exemplaires;
-	}
-	
 	public OuvrageAux(Ouvrage ouvrage) {
 		
 		this.id = ouvrage.getId();
@@ -38,8 +25,8 @@ public class OuvrageAux {
 		this.auteur_prenom = ouvrage.getAuteur_prenom();
 		this.edition = ouvrage.getEdition();
 		this.genre = ouvrage.getGenre();
-		this.exemplaires = ouvrage.getExemplaires().toArray(new Exemplaire[ouvrage.getExemplaires().size()]);
-	
+		//this.exemplairesAux = new Converter().convertExemplaires(ouvrage.getExemplaires());
+		this.exemplairesAux = ouvrage.getExemplaires().toArray(new ExemplaireAux[ouvrage.getExemplaires().size()]);
 	}
 
 	public Integer getId() {
@@ -90,13 +77,17 @@ public class OuvrageAux {
 		this.genre = genre;
 	}
 
-	public Exemplaire[] getExemplaires() {
-		return exemplaires;
+	public ExemplaireAux[] getExemplairesAux() {
+		return exemplairesAux;
 	}
 
-	public void setExemplaires(Exemplaire[] exemplaires) {
-		this.exemplaires = exemplaires;
+	public void setExemplairesAux(ExemplaireAux[] exemplairesAux) {
+		this.exemplairesAux = exemplairesAux;
 	}
+
+	
+
+	
 	
 
 }

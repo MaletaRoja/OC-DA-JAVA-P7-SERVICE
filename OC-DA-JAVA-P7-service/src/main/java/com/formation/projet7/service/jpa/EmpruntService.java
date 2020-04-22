@@ -36,4 +36,10 @@ public class EmpruntService implements IEmpruntService {
 		return exemplaires;
 	}
 
+	@Override
+	public void enregistrerEmprunt(Emprunt emprunt) {
+		empruntRepo.save(emprunt);
+		
+	}
+
 }

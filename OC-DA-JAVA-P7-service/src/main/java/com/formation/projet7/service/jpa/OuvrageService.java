@@ -1,11 +1,13 @@
 package com.formation.projet7.service.jpa;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.formation.projet7.model.Ouvrage;
+import com.formation.projet7.model.OuvrageAux;
 import com.formation.projet7.repository.OuvrageRepo;
 import com.formation.projet7.service.IOuvrageService;
 
@@ -53,5 +55,25 @@ public class OuvrageService implements IOuvrageService {
 		 List<String> genres = ouvrageRepo.findRubriques();
 		return genres;
 	}
+
+	@Override
+	public List<Ouvrage> listerOuvragesParRubrique(String rubrique) {
+		
+		List<Ouvrage> ouvrages = ouvrageRepo.findByGenre(rubrique);
+		return ouvrages;
+	}
+	
+	public List<OuvrageAux> obtenirOuvragesAux(List<Ouvrage> ouvrages){
+		
+		List<OuvrageAux> listeOuvragesAux = new ArrayList<OuvrageAux>();
+		for (Ouvrage ouvrage: ouvrages) {
+			
+			OuvrageAux o = new OuvrageAux(ouvrage);
+			listeOuvragesAux.add(o);
+			
+		}
+			return listeOuvragesAux; 
+	}
+	
 
 }

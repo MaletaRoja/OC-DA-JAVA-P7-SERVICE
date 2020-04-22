@@ -10,5 +10,7 @@ public interface IOuvrageService {
 	void supprimerOuvrage(Ouvrage ouvrage);
 	void ajouterOuvrage(Ouvrage ouvrage);
 	List<String> genres();
+	List<Ouvrage> listerOuvragesParRubrique(String rubrique);
+	
 
 }

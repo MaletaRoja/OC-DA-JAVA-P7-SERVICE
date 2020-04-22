@@ -52,6 +52,13 @@ public class OuvragesController {
 		return genres;
 	}
 	
+	@GetMapping("/ouvrage/liste/rubrique/{rubrique}")
+	public List<OuvrageAux> tousLesOuvragesParRubrique(@PathVariable  String rubrique){
+		List<Ouvrage> ouvrages = ouvrageService.listerOuvragesParRubrique(rubrique);
+		List<OuvrageAux> ouvragesAux = ouvrageService.obtenirOuvragesAux(ouvrages);
+		return ouvragesAux;
+	}
+	
 	
 
 }
