@@ -12,6 +12,7 @@ import com.formation.projet7.constants.Constants;
 import com.formation.projet7.model.Emprunt;
 import com.formation.projet7.model.EmpruntAux;
 import com.formation.projet7.model.Exemplaire;
+import com.formation.projet7.model.LigneEmprunt;
 import com.formation.projet7.model.Ouvrage;
 import com.formation.projet7.model.Utilisateur;
 import com.formation.projet7.repository.EmpruntRepo;
@@ -22,46 +23,45 @@ import com.formation.projet7.service.utils.OuvrageOutil;
 
 @Service
 public class EmpruntService implements IEmpruntService {
-	
+
 	@Autowired
 	EmpruntRepo empruntRepo;
-	
+
 	@Autowired
 	OuvrageRepo ouvrageRepo;
-	
+
 	@Autowired
 	UserService userService;
-	
+
 	@Autowired
 	ExemplaireRepo exemplaireRepo;
-	
+
 	@Override
 	public List<Emprunt> listerUserEmprunt(Utilisateur user) {
-		
+
 		List<Emprunt> emprunts = empruntRepo.findByEmprunteur(user);
 		return emprunts;
 	}
 
 	@Override
 	public List<Exemplaire> listerOuvrageEmprunts(Ouvrage ouvrage) {
-		
+
 		List<Exemplaire> exemplaires = ouvrage.getExemplaires();
 		return exemplaires;
 	}
 
 	/*
-	@Override
-	public void enregistrerEmprunt(Emprunt emprunt) {
-		empruntRepo.save(emprunt);
-		
-	}
-	*/
-	
+	 * @Override public void enregistrerEmprunt(Emprunt emprunt) {
+	 * empruntRepo.save(emprunt);
+	 * 
+	 * }
+	 */
+
 	@Override
 	public void enregistrerEmprunt(String rubrique, Integer id, Utilisateur utilisateur) {
-		
-		LocalDateTime debut =  LocalDateTime.now();
-		//LocalDateTime fin = debut.plus(Constants.DELAY_MOUNTS, ChronoUnit.MONTHS);
+
+		LocalDateTime debut = LocalDateTime.now();
+		// LocalDateTime fin = debut.plus(Constants.DELAY_MOUNTS, ChronoUnit.MONTHS);
 		LocalDateTime fin = debut.plus(Constants.DELAY_MIN, ChronoUnit.MINUTES);
 		Emprunt emprunt = new Emprunt();
 		emprunt.setActif(true);
@@ -69,11 +69,11 @@ public class EmpruntService implements IEmpruntService {
 		emprunt.setFin(fin);
 		emprunt.setEmprunteur(utilisateur);
 		emprunt.setProlongation(false);
-		
+
 		List<Ouvrage> ouvrages = ouvrageRepo.findByGenre(rubrique);
 		Ouvrage ouvrage = ouvrages.get(id);
 		List<Exemplaire> exemplaires = ouvrage.getExemplaires();
-		
+
 		List<Exemplaire> livrables = new OuvrageOutil().exemplairesLivrables(exemplaires);
 		Exemplaire ex = livrables.get(0);
 		emprunt.setExemplaire(ex);
@@ -81,21 +81,21 @@ public class EmpruntService implements IEmpruntService {
 		exemplaireRepo.save(ex);
 		System.out.println("date début: " + debut);
 		System.out.println("date fin:   " + fin);
-		
+
 		empruntRepo.save(emprunt);
 	}
 
 	public void enregistrerEmprunt(EmpruntAux empruntAux) {
-	
+
 		Utilisateur utilisateur = userService.obtenirUser(empruntAux.getIdUser());
-		System.out.println("nom utilisateur: " + utilisateur.getNom());
+
 		Integer id = empruntAux.getNumero();
 		String rubrique = empruntAux.getRubrique();
-		
-		LocalDateTime debut =  LocalDateTime.now();
-		//LocalDateTime fin = debut.plus(Constants.DELAY_MOUNTS, ChronoUnit.MONTHS);
+
+		LocalDateTime debut = LocalDateTime.now();
+		// LocalDateTime fin = debut.plus(Constants.DELAY_MOUNTS, ChronoUnit.MONTHS);
 		LocalDateTime fin = debut.plus(Constants.DELAY_MIN, ChronoUnit.MINUTES);
-		
+
 		Emprunt emprunt = new Emprunt();
 		emprunt.setActif(true);
 		emprunt.setDebut(debut);
@@ -104,35 +104,60 @@ public class EmpruntService implements IEmpruntService {
 		emprunt.setProlongation(false);
 		List<Ouvrage> ouvrages = new ArrayList<Ouvrage>();
 		if (rubrique.equals("toutes")) {
-			
+
 			ouvrages = ouvrageRepo.findAll();
-			System.out.println("rubrique: toutes");
-			System.out.println("taille ouvrages: " + ouvrages.size());
-			
-		}else {
-			
+
+		} else {
+
 			ouvrages = ouvrageRepo.findByGenre(rubrique);
-			System.out.println("***rubrique: " + rubrique);
-			System.out.println("taille ouvrages: " + ouvrages.size());
+
 		}
-		
+
 		Ouvrage ouvrage = ouvrages.get(id);
-		
-		System.out.println("titre: " + ouvrage.getTitre());
-		
 		List<Exemplaire> exemplaires = ouvrage.getExemplaires();
-		System.out.println("taille exemplaires: " + exemplaires.size());
 		List<Exemplaire> livrables = new OuvrageOutil().exemplairesLivrables(exemplaires);
 		Exemplaire ex = livrables.get(0);
 		emprunt.setExemplaire(ex);
 		ex.setDisponible(false);
 		exemplaireRepo.save(ex);
-		
-		System.out.println("date début: " + debut);
-		System.out.println("date fin:   " + fin);
-		
 		empruntRepo.save(emprunt);
+
+	}
+
+	@Override
+	public List<Emprunt> listerUserEmpruntActifs(Utilisateur user) {
+
+		List<Emprunt> emprunts = empruntRepo.findByEmprunteurAndActif(user, true);
+
+		return emprunts;
+	}
+
+	public List<LigneEmprunt> obtenirUserEmpruntActifs(Integer id) {
 		
+		Utilisateur user = userService.obtenirUser(id);
+		List<Emprunt> emprunts = empruntRepo.findByEmprunteurAndActif(user, true);
+		List<LigneEmprunt> tabEmprunts = new ArrayList<LigneEmprunt>();
+		
+		for(Emprunt em : emprunts) {
+			
+			Exemplaire ex = em.getExemplaire();
+			Ouvrage o = ex.getOuvrage();
+			LigneEmprunt ligne = new LigneEmprunt();
+			ligne.setId(em.getId());
+			ligne.setActif(em.isActif());
+			ligne.setProlongation(em.isProlongation());
+			ligne.setTitre(o.getTitre());
+			ligne.setAuteur_nom(o.getAuteur_nom());
+			ligne.setAuteur_prenom(o.getAuteur_prenom());
+			ligne.setEdition(o.getEdition());
+			ligne.setGenre(o.getGenre());
+			ligne.setDebut(em.getDebut());
+			ligne.setFin(em.getFin());
+			tabEmprunts.add(ligne);
+			
+		}
+		
+		return tabEmprunts;
 	}
 
 }

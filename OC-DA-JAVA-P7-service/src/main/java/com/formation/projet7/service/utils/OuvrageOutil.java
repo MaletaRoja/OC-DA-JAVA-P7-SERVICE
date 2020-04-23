@@ -57,7 +57,7 @@ public class OuvrageOutil {
 				exDispos.add(ex);
 			}
 		}
-		System.out.println("taille list exs: " + exemplaires.size());
+		
 		return exDispos;
 	}
 	
@@ -73,7 +73,7 @@ public List<Exemplaire> exemplairesLivrables(Ouvrage ouvrage){
 				exDispos.add(ex);
 			}
 		}
-		System.out.println("taille list exs: " + exemplaires.size());
+		
 		return exDispos;
 	}
 }

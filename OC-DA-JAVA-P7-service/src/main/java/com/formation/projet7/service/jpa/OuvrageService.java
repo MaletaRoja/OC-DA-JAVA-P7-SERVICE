@@ -28,7 +28,6 @@ public class OuvrageService implements IOuvrageService {
 	public Ouvrage obtenirOuvrage(Integer id) {
 		
 		Ouvrage ouvrage = ouvrageRepo.getOne(id);
-		System.out.println("obtenir ouvrage");
 		return ouvrage;
 	}
 

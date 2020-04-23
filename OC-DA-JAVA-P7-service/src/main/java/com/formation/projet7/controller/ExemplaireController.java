@@ -39,14 +39,6 @@ public class ExemplaireController {
 		
 	}
 	
-	/**
-	@GetMapping("/exemplaire/disponibles")
-	public List<ExemplaireDispo> ListerExemplairesDisponibles() {
-		
-		List<ExemplaireDispo> listeExemplairesDisponibles = exemplaireService.exemplairesDisponibles();
-		return listeExemplairesDisponibles;
-	}
-	*/
 	
 	@GetMapping("/exemplaire/disponibles")
 	public List<Exemplaire> ListerExemplairesDisponibles() {

@@ -10,5 +10,7 @@ import com.formation.projet7.model.Utilisateur;
 public interface EmpruntRepo extends JpaRepository<Emprunt, Integer> {
 
 	List<Emprunt> findByEmprunteur(Utilisateur utilisateur);
+	List<Emprunt> findByEmprunteurAndActif(Utilisateur utilisateur, boolean actif);
+	
 
 }

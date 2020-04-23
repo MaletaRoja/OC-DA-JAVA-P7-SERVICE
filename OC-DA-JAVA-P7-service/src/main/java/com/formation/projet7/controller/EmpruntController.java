@@ -1,5 +1,6 @@
 package com.formation.projet7.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.formation.projet7.model.Emprunt;
 import com.formation.projet7.model.EmpruntAux;
+import com.formation.projet7.model.Exemplaire;
 import com.formation.projet7.model.Utilisateur;
+import com.formation.projet7.model.LigneEmprunt;
+import com.formation.projet7.model.Ouvrage;
 import com.formation.projet7.service.jpa.EmpruntService;
 import com.formation.projet7.service.jpa.UserService;
 
@@ -41,12 +45,35 @@ public class EmpruntController {
 	@PutMapping("/emprunts/save")
 	public void enregistrerEmprunt(@RequestBody EmpruntAux empruntAux) {
 		
-		System.out.println("UserId: " +  empruntAux.getIdUser());
-		System.out.println("Rubrique: " + empruntAux.getRubrique());
-		System.out.println("num: " + empruntAux.getNumero());
-		
 		empruntService.enregistrerEmprunt(empruntAux);
 	}
 	
-
+	@GetMapping("/ouvrage/emprunts/actifs/{id}")
+	public List<LigneEmprunt> empruntsActifs(@PathVariable  Integer id){
+		
+		Utilisateur utilisateur = userService.obtenirUser(id);
+		List<Emprunt> emprunts = empruntService.listerUserEmpruntActifs(utilisateur);
+		List<LigneEmprunt> tabEmprunts = new ArrayList<LigneEmprunt>();
+		
+		for(Emprunt em : emprunts) {
+			
+			Exemplaire ex = em.getExemplaire();
+			Ouvrage o = ex.getOuvrage();
+			LigneEmprunt ligne = new LigneEmprunt();
+			ligne.setId(em.getId());
+			ligne.setActif(em.isActif());
+			ligne.setProlongation(em.isProlongation());
+			ligne.setTitre(o.getTitre());
+			ligne.setAuteur_nom(o.getAuteur_nom());
+			ligne.setAuteur_prenom(o.getAuteur_prenom());
+			ligne.setEdition(o.getEdition());
+			ligne.setGenre(o.getGenre());
+			ligne.setDebut(em.getDebut());
+			ligne.setFin(em.getFin());
+			tabEmprunts.add(ligne);
+			
+		}
+		
+		return tabEmprunts;
+	}
 }
