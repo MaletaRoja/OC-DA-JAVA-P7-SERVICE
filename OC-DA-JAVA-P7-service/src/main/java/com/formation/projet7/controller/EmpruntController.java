@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.formation.projet7.model.Emprunt;
+import com.formation.projet7.model.EmpruntAux;
 import com.formation.projet7.model.Utilisateur;
 import com.formation.projet7.service.jpa.EmpruntService;
 import com.formation.projet7.service.jpa.UserService;
@@ -38,9 +39,13 @@ public class EmpruntController {
 	}
 	
 	@PutMapping("/emprunts/save")
-	public void enregistrerEmprunt(@RequestBody Emprunt emprunt) {
+	public void enregistrerEmprunt(@RequestBody EmpruntAux empruntAux) {
 		
-		empruntService.enregistrerEmprunt(emprunt);
+		System.out.println("UserId: " +  empruntAux.getIdUser());
+		System.out.println("Rubrique: " + empruntAux.getRubrique());
+		System.out.println("num: " + empruntAux.getNumero());
+		
+		empruntService.enregistrerEmprunt(empruntAux);
 	}
 	
 

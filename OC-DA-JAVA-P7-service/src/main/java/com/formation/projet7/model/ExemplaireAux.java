@@ -11,7 +11,7 @@ public class ExemplaireAux {
 
 	private Integer id;
 	private OuvrageAux ouvrageAux;
-	private EmpruntAux[] empruntsAux;
+	//private EmpruntAux[] empruntsAux;
 	private boolean disponible;
 	private boolean actif;
 
@@ -19,12 +19,12 @@ public class ExemplaireAux {
 
 	}
 
-	public ExemplaireAux(Integer id, OuvrageAux ouvrageAux, EmpruntAux[] empruntsAux, boolean disponible,
+	public ExemplaireAux(Integer id, OuvrageAux ouvrageAux,  boolean disponible,
 			boolean actif) {
-		super();
+		
 		this.id = id;
 		this.ouvrageAux = ouvrageAux;
-		this.empruntsAux = empruntsAux;
+		//this.empruntsAux = empruntsAux;
 		this.disponible = disponible;
 		this.actif = actif;
 	}
@@ -33,7 +33,7 @@ public class ExemplaireAux {
 		
 		this.id = exemplaire.getId();
 		this.ouvrageAux = new OuvrageAux(exemplaire.getOuvrage());
-		this.empruntsAux = exemplaire.getEmprunts().toArray(new EmpruntAux[exemplaire.getEmprunts().size()]);
+		//this.empruntsAux = exemplaire.getEmprunts().toArray(new EmpruntAux[exemplaire.getEmprunts().size()]);
 		this.disponible = disponible;
 		this.actif = actif;
 	}
@@ -53,7 +53,7 @@ public class ExemplaireAux {
 	public void setOuvrageAux(OuvrageAux ouvrageAux) {
 		this.ouvrageAux = ouvrageAux;
 	}
-
+/*
 	public EmpruntAux[] getEmpruntsAux() {
 		return empruntsAux;
 	}
@@ -61,7 +61,7 @@ public class ExemplaireAux {
 	public void setEmpruntsAux(EmpruntAux[] empruntsAux) {
 		this.empruntsAux = empruntsAux;
 	}
-
+*/
 	public boolean isDisponible() {
 		return disponible;
 	}

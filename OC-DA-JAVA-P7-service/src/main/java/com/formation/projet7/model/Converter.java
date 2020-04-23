@@ -23,7 +23,7 @@ public class Converter implements IConverter {
 	@Override
 	public EmpruntAux[] convertEmprunts(List<Emprunt> emprunts) {
 		
-		
+		/*
 		EmpruntAux[] empTab = null;
 		for (int i=0; i<emprunts.size(); i++) {
 			
@@ -33,6 +33,8 @@ public class Converter implements IConverter {
 		}
 	
 		return empTab;
+		*/
+		return null;
 	}
 
 	@Override
@@ -49,4 +51,6 @@ public class Converter implements IConverter {
 		return ouvTab;
 	}
 
+
+	
 }

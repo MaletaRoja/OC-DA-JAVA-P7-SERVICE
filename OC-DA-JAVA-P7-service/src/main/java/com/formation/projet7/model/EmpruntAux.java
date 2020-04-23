@@ -8,96 +8,51 @@ import javax.persistence.ManyToOne;
 
 public class EmpruntAux {
 
-	private Integer id;
-	private Exemplaire exemplaire;
-	private Utilisateur emprunteur;
-	private LocalDateTime debut;
-	private LocalDateTime fin;
-	private boolean prolongation; 
-	private boolean actif;
+	private String rubrique;
+	private Integer numero;
+	private Integer idUser;
+	
 	
 	public EmpruntAux() {
-		
+	
 	}
 
-	public EmpruntAux(Integer id, Exemplaire exemplaire, Utilisateur emprunteur, LocalDateTime debut, LocalDateTime fin,
-			boolean prolongation, boolean actif) {
+
+	public EmpruntAux(String rubrique, Integer numero, Integer idUser) {
 		super();
-		this.id = id;
-		this.exemplaire = exemplaire;
-		this.emprunteur = emprunteur;
-		this.debut = debut;
-		this.fin = fin;
-		this.prolongation = prolongation;
-		this.actif = actif;
-	}
-	
-		public EmpruntAux(Emprunt emprunt) {
-		
-		this.id = emprunt.getId();
-		this.exemplaire = emprunt.getExemplaire();
-		this.emprunteur = emprunt.getEmprunteur();
-		this.debut = emprunt.getDebut();
-		this.fin = emprunt.getFin();
-		this.prolongation = emprunt.isProlongation();
-		this.actif = emprunt.isActif();
+		this.rubrique = rubrique;
+		this.numero = numero;
+		this.idUser = idUser;
 	}
 
-	public Integer getId() {
-		return id;
+
+	public String getRubrique() {
+		return rubrique;
 	}
 
-	public void setId(Integer id) {
-		this.id = id;
+
+	public void setRubrique(String rubrique) {
+		this.rubrique = rubrique;
 	}
 
-	public Exemplaire getExemplaire() {
-		return exemplaire;
+
+	public Integer getNumero() {
+		return numero;
 	}
 
-	public void setExemplaire(Exemplaire exemplaire) {
-		this.exemplaire = exemplaire;
+
+	public void setNumero(Integer numero) {
+		this.numero = numero;
 	}
 
-	public Utilisateur getEmprunteur() {
-		return emprunteur;
+
+	public Integer getIdUser() {
+		return idUser;
 	}
 
-	public void setEmprunteur(Utilisateur emprunteur) {
-		this.emprunteur = emprunteur;
-	}
 
-	public LocalDateTime getDebut() {
-		return debut;
+	public void setIdUser(Integer idUser) {
+		this.idUser = idUser;
 	}
-
-	public void setDebut(LocalDateTime debut) {
-		this.debut = debut;
-	}
-
-	public LocalDateTime getFin() {
-		return fin;
-	}
-
-	public void setFin(LocalDateTime fin) {
-		this.fin = fin;
-	}
-
-	public boolean isProlongation() {
-		return prolongation;
-	}
-
-	public void setProlongation(boolean prolongation) {
-		this.prolongation = prolongation;
-	}
-
-	public boolean isActif() {
-		return actif;
-	}
-
-	public void setActif(boolean actif) {
-		this.actif = actif;
-	}
-	
 	
 }
