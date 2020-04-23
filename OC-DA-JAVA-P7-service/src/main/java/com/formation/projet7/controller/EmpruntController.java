@@ -26,37 +26,37 @@ import com.formation.projet7.service.jpa.UserService;
 @RestController
 @RequestMapping("/biblio")
 public class EmpruntController {
-	
+
 	@Autowired
 	EmpruntService empruntService;
-	
+
 	@Autowired
 	UserService userService;
-	
+
 	@PostMapping("/emprunts/{id}")
-	public ResponseEntity<?> tousLesEmprunts(@PathVariable Integer id){
-		
+	public ResponseEntity<?> tousLesEmprunts(@PathVariable Integer id) {
+
 		Utilisateur user = userService.obtenirUser(id);
 		List<Emprunt> emprunts = empruntService.listerUserEmprunt(user);
 		return new ResponseEntity<>(emprunts, HttpStatus.OK);
-		
+
 	}
-	
+
 	@PutMapping("/emprunts/save")
 	public void enregistrerEmprunt(@RequestBody EmpruntAux empruntAux) {
-		
+
 		empruntService.enregistrerEmprunt(empruntAux);
 	}
-	
+
 	@GetMapping("/ouvrage/emprunts/actifs/{id}")
-	public List<LigneEmprunt> empruntsActifs(@PathVariable  Integer id){
-		
+	public List<LigneEmprunt> empruntsActifs(@PathVariable Integer id) {
+
 		Utilisateur utilisateur = userService.obtenirUser(id);
 		List<Emprunt> emprunts = empruntService.listerUserEmpruntActifs(utilisateur);
 		List<LigneEmprunt> tabEmprunts = new ArrayList<LigneEmprunt>();
-		
-		for(Emprunt em : emprunts) {
-			
+
+		for (Emprunt em : emprunts) {
+
 			Exemplaire ex = em.getExemplaire();
 			Ouvrage o = ex.getOuvrage();
 			LigneEmprunt ligne = new LigneEmprunt();
@@ -71,9 +71,39 @@ public class EmpruntController {
 			ligne.setDebut(em.getDebut());
 			ligne.setFin(em.getFin());
 			tabEmprunts.add(ligne);
-			
+
 		}
-		
+
 		return tabEmprunts;
 	}
+
+	@GetMapping("/ouvrage/emprunts/hist/{id}")
+	public List<LigneEmprunt> empruntsHist(@PathVariable Integer id) {
+
+		Utilisateur utilisateur = userService.obtenirUser(id);
+		List<Emprunt> emprunts = empruntService.listerUserEmprunt(utilisateur);
+		List<LigneEmprunt> tabEmprunts = new ArrayList<LigneEmprunt>();
+
+		for (Emprunt em : emprunts) {
+
+			Exemplaire ex = em.getExemplaire();
+			Ouvrage o = ex.getOuvrage();
+			LigneEmprunt ligne = new LigneEmprunt();
+			ligne.setId(em.getId());
+			ligne.setActif(em.isActif());
+			ligne.setProlongation(em.isProlongation());
+			ligne.setTitre(o.getTitre());
+			ligne.setAuteur_nom(o.getAuteur_nom());
+			ligne.setAuteur_prenom(o.getAuteur_prenom());
+			ligne.setEdition(o.getEdition());
+			ligne.setGenre(o.getGenre());
+			ligne.setDebut(em.getDebut());
+			ligne.setFin(em.getFin());
+			tabEmprunts.add(ligne);
+
+		}
+
+		return tabEmprunts;
+	}
+
 }
