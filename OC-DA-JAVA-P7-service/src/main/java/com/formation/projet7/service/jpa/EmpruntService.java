@@ -50,12 +50,12 @@ public class EmpruntService implements IEmpruntService {
 		return exemplaires;
 	}
 
-	/*
-	 * @Override public void enregistrerEmprunt(Emprunt emprunt) {
-	 * empruntRepo.save(emprunt);
-	 * 
-	 * }
-	 */
+
+	 @Override public void saveEmprunt(Emprunt emprunt) {
+		 empruntRepo.save(emprunt);
+	  
+	  }
+	 
 
 	@Override
 	public void enregistrerEmprunt(String rubrique, Integer id, Utilisateur utilisateur) {
@@ -158,6 +158,11 @@ public class EmpruntService implements IEmpruntService {
 		}
 		
 		return tabEmprunts;
+	}
+
+	public Emprunt obtenirEmpruntParId(Integer id) {
+		Emprunt emprunt = empruntRepo.getOne(id);
+		return emprunt;
 	}
 
 }

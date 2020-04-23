@@ -1,5 +1,7 @@
 package com.formation.projet7.controller;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +24,8 @@ import com.formation.projet7.model.LigneEmprunt;
 import com.formation.projet7.model.Ouvrage;
 import com.formation.projet7.service.jpa.EmpruntService;
 import com.formation.projet7.service.jpa.UserService;
+import com.formation.projet7.constants.Constants;
+
 
 @RestController
 @RequestMapping("/biblio")
@@ -100,10 +104,20 @@ public class EmpruntController {
 			ligne.setDebut(em.getDebut());
 			ligne.setFin(em.getFin());
 			tabEmprunts.add(ligne);
-
 		}
 
 		return tabEmprunts;
 	}
-
+	
+	@GetMapping("/prolonger/{id}")
+	void prolonger(@PathVariable  Integer id) {
+		
+		Emprunt emprunt = empruntService.obtenirEmpruntParId(id);
+		emprunt.setProlongation(true);
+		LocalDateTime fin = emprunt.getFin();
+		fin = fin.plus(Constants.PROLONGEMENT_MIN, ChronoUnit.MINUTES);
+		emprunt.setFin(fin);
+		empruntService.saveEmprunt(emprunt);
+	}
+	
 }
