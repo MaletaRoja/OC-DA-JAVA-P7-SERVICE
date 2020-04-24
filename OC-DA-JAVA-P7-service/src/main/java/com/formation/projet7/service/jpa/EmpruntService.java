@@ -165,4 +165,12 @@ public class EmpruntService implements IEmpruntService {
 		return emprunt;
 	}
 
+	public List<Emprunt> obtenirEmpruntsActif() {
+
+		List<Emprunt> emprunts = empruntRepo.findByActif(true);
+		return emprunts;
+	}
+
+	
+
 }

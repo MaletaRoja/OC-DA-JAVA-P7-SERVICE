@@ -11,6 +11,7 @@ public interface EmpruntRepo extends JpaRepository<Emprunt, Integer> {
 
 	List<Emprunt> findByEmprunteur(Utilisateur utilisateur);
 	List<Emprunt> findByEmprunteurAndActif(Utilisateur utilisateur, boolean actif);
+	List<Emprunt> findByActif(boolean b);
 	
 
 }

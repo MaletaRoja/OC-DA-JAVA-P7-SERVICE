@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.formation.projet7.model.Ouvrage;
 import com.formation.projet7.model.Utilisateur;
+import com.formation.projet7.proxy.MicroServiceMail;
 import com.formation.projet7.repository.UserRepo;
 import com.formation.projet7.service.jpa.UserService;
 
@@ -22,6 +23,10 @@ public class UtilisateurController {
 
 	@Autowired
 	UserService userService;
+	/*
+	@Autowired 
+	MicroServiceMail microservice;
+	*/
 	
 	@GetMapping("/users")
 	public List<Utilisateur> tousLesUtilisateurs(){
@@ -37,4 +42,5 @@ public class UtilisateurController {
 		Utilisateur user = userService.obtenirUser(id);
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
+	
 }
