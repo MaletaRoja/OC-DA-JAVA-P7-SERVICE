@@ -120,4 +120,19 @@ public class EmpruntController {
 		empruntService.saveEmprunt(emprunt);
 	}
 	
+	// test récupération d'un emprunt par méthode JPA persistance
+	
+	@GetMapping("/get")
+	void recup() {
+		
+		Emprunt emp = empruntService.trouveEmprunt(35);
+		System.out.println("id :" + emp.getId());
+		System.out.println("actif: " + emp.isActif());
+		System.out.println("prolongation: " + emp.isProlongation());
+		System.out.println("début: " + emp.getDebut());
+		System.out.println("fin: " + emp.getFin());
+		System.out.println("exemplaire : " + emp.getExemplaire().getId());
+		
+	}
+	
 }

@@ -5,6 +5,11 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -169,6 +174,20 @@ public class EmpruntService implements IEmpruntService {
 
 		List<Emprunt> emprunts = empruntRepo.findByActif(true);
 		return emprunts;
+	}
+	
+	
+	// test JPA persistence 
+	
+	public Emprunt trouveEmprunt(Integer id) {
+		
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("test");
+		EntityManager em = factory.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		Emprunt emp = em.find(Emprunt.class, id);
+		tx.commit();
+		return emp;
 	}
 
 	

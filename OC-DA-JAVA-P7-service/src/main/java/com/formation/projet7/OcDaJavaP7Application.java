@@ -49,7 +49,7 @@ public class OcDaJavaP7Application {
 		
 	}
 	
-	@Scheduled(initialDelay = 1000L, fixedDelay = 2000L)
+	@Scheduled(initialDelay = 1000L, fixedDelay = 10000L)
 	void scrutation() throws InterruptedException {
 		
 		System.out.println("Now is " + new Date());
@@ -59,7 +59,7 @@ public class OcDaJavaP7Application {
 		if (em.getFin().isBefore(LocalDateTime.now()) ){
 			
 			System.out.println("Alerte!");
-			microServiceMail.sendSimpleEmail();
+			//microServiceMail.sendSimpleEmail();
 		}
 				
 		Thread.sleep(5000L);
