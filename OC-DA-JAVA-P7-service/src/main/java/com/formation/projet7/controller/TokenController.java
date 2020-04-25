@@ -18,7 +18,7 @@ import com.formation.projet7.security.JWTGenerator;
 import com.formation.projet7.service.jpa.UserService;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/biblio/")
 public class TokenController {
 	
 	@Autowired
@@ -37,12 +37,14 @@ public class TokenController {
 	@PostMapping("connexion/")
 	public ResponseEntity<String> generate(@RequestBody final Login login){
 		
+		System.out.println("**Entrée POST service");
 		Utilisateur jwtUser = new Utilisateur();
 		jwtUser = existUtilisateur(login);
 		
 		if (jwtUser != null) {
 			
 			return new ResponseEntity<String>(jwtGenerator.generate(jwtUser), HttpStatus.OK);
+			
 		}else {
 			
 			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
@@ -55,7 +57,7 @@ public class TokenController {
 		System.out.println("Login user: " + login.getUser());
 		System.out.println("Login user: " + login.getPassword());
 		System.out.println("Login user: " + passwordEncoder.encode(login.getPassword()));
-		
+		/*
 		try {
 			
 		Utilisateur utilisateur = userService.obtenirUserParlogin(login.getUser(), login.getPassword());
@@ -69,14 +71,14 @@ public class TokenController {
 			return null;
 		}
 		
+		*/
 		
 		
-		/*
-		if (login.getUser().equals("Michel") && login.getPassword().equals("michel")) {
+		if (login.getUser().equals("michel@gmail.com") && login.getPassword().equals("michel")) {
 			
 			Utilisateur jwtUser = new Utilisateur();
 			jwtUser.setUsername(login.getUser());
-			jwtUser.setId(1);
+			jwtUser.setId(22);
 			jwtUser.setRole("Admin");
 			return jwtUser;
 			
@@ -84,7 +86,8 @@ public class TokenController {
 			
 			return null;
 		}  
-		*/
+		
+		
 	}
 	
 
