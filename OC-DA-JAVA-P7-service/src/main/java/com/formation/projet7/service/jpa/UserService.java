@@ -59,4 +59,9 @@ public class UserService implements IUserService {
 		
 	}
 
+	public Utilisateur obtenirUserParlogin(String user, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

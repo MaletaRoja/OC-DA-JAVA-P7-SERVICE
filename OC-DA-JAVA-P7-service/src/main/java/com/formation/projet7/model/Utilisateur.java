@@ -22,6 +22,7 @@ public class Utilisateur implements Serializable {
 	private String prenom;
 	private String username;
 	private String password;
+	private String role;
 	
 	@JsonIgnore
 	@OneToMany(mappedBy="emprunteur")
@@ -43,6 +44,7 @@ public class Utilisateur implements Serializable {
 		this.username = username;
 		this.password = password;
 		this.emprunts = emprunts;
+		
 	}
 
 	public Integer getId() {
@@ -91,6 +93,14 @@ public class Utilisateur implements Serializable {
 
 	public void setEmprunts(List<Emprunt> emprunts) {
 		this.emprunts = emprunts;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 
 	
