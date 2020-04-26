@@ -20,12 +20,12 @@ public class JWTAuthenticationFilter extends AbstractAuthenticationProcessingFil
 	
 
 	protected JWTAuthenticationFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
-		super("/biblio/**");
+		super("/access");
 		
 	}
 
 	public JWTAuthenticationFilter() {
-		super("/biblio/**");
+		super("/access");   // filtre url
 	}
 
 	@Override

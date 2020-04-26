@@ -55,7 +55,7 @@ public class JWTSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		
 		http.csrf().disable()
-		.authorizeRequests().antMatchers("*/**")
+		.authorizeRequests().antMatchers("/aaaa/**")
 		.authenticated()
 		.and()
 		.exceptionHandling().authenticationEntryPoint(entryPoint)
