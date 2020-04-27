@@ -50,7 +50,7 @@ public class UtilisateurController {
 	public void creerCompte (@RequestBody UtilisateurAux user) {
 		
 		Utilisateur utilisateur = new Utilisateur();
-		utilisateur.setPrenom(user.getNom());
+		utilisateur.setPrenom(user.getPrenom());
 		utilisateur.setNom(user.getNom());
 		utilisateur.setPassword(user.getToken());
 		utilisateur.setRole(user.getRole());
