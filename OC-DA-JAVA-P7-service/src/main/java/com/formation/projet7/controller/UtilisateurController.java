@@ -8,11 +8,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.formation.projet7.model.Ouvrage;
 import com.formation.projet7.model.Utilisateur;
+import com.formation.projet7.model.UtilisateurAux;
 import com.formation.projet7.proxy.MicroServiceMail;
 import com.formation.projet7.repository.UserRepo;
 import com.formation.projet7.service.jpa.UserService;
@@ -41,6 +43,19 @@ public class UtilisateurController {
 		
 		Utilisateur user = userService.obtenirUser(id);
 		return new ResponseEntity<>(user, HttpStatus.OK);
+	}
+	
+	@PutMapping("compte/")
+	public void creerCompte (UtilisateurAux user) {
+		
+		Utilisateur utilisateur = new Utilisateur();
+		utilisateur.setPrenom(user.getNom());
+		utilisateur.setNom(user.getNom());
+		utilisateur.setPassword(user.getToken());
+		utilisateur.setRole(user.getRole());
+		utilisateur.setUsername(user.getUsername());
+		userService.ajouterUser(utilisateur);
+		
 	}
 	
 }

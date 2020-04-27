@@ -16,7 +16,7 @@ public class SecurityController {
 	
 	// Méthode de test
 	
-	@GetMapping("/access")
+	@GetMapping("/biblio/access")
 	public ResponseEntity<?> getInformacionBancaria(){
 		List<String> movimientosBancarios = obtenerUltimosMovimientosBancarios();
 		if(movimientosBancarios != null) {

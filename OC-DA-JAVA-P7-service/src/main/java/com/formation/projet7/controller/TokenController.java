@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.formation.projet7.model.JWTUserDetails;
 import com.formation.projet7.model.Login;
 import com.formation.projet7.model.Utilisateur;
+import com.formation.projet7.model.UtilisateurAux;
 import com.formation.projet7.security.JWTGenerator;
 import com.formation.projet7.service.jpa.UserService;
 
@@ -35,15 +36,27 @@ public class TokenController {
 	}
 	
 	@PostMapping("connexion/")
-	public ResponseEntity<String> generate(@RequestBody final Login login){
+	public ResponseEntity<UtilisateurAux> generate(@RequestBody final Login login){
 		
 		System.out.println("**Entrée POST service");
 		Utilisateur jwtUser = new Utilisateur();
 		jwtUser = existUtilisateur(login);
 		
+		UtilisateurAux userAux = new UtilisateurAux();
+		userAux.setId(jwtUser.getId()); 
+		userAux.setNom(jwtUser.getNom());
+		userAux.setPrenom(jwtUser.getPrenom());
+		userAux.setRole("ADMIN");
+		userAux.setUsername(jwtUser.getUsername());
+		
 		if (jwtUser != null) {
 			
-			return new ResponseEntity<String>(jwtGenerator.generate(jwtUser), HttpStatus.OK);
+			
+			//return new ResponseEntity<String>(jwtGenerator.generate(jwtUser), HttpStatus.OK);
+			String token = jwtGenerator.generate(jwtUser);
+			userAux.setToken(token);
+			return new ResponseEntity<UtilisateurAux>(userAux, HttpStatus.OK);
+			
 			
 		}else {
 			
@@ -57,7 +70,7 @@ public class TokenController {
 		System.out.println("Login user: " + login.getUser());
 		System.out.println("Login user: " + login.getPassword());
 		System.out.println("Login user: " + passwordEncoder.encode(login.getPassword()));
-		/*
+		
 		try {
 			
 		Utilisateur utilisateur = userService.obtenirUserParlogin(login.getUser(), login.getPassword());
@@ -71,9 +84,9 @@ public class TokenController {
 			return null;
 		}
 		
-		*/
 		
 		
+		/*
 		if (login.getUser().equals("michel@gmail.com") && login.getPassword().equals("michel")) {
 			
 			Utilisateur jwtUser = new Utilisateur();
@@ -86,7 +99,7 @@ public class TokenController {
 			
 			return null;
 		}  
-		
+		*/
 		
 	}
 	
