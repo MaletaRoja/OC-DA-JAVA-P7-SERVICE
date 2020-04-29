@@ -18,14 +18,16 @@ import com.formation.projet7.model.JWTAuthenticationToken;
 public class JWTAuthenticationFilter extends AbstractAuthenticationProcessingFilter {
 
 	
-
+/*
 	protected JWTAuthenticationFilter(RequestMatcher requiresAuthenticationRequestMatcher) {
-		super("/aaa/**");
+		super("/biblio/ouvrage/**");
+		
 		
 	}
-
+*/
 	public JWTAuthenticationFilter() {
-		super("/aaa/**");
+		super("/aaaa/**");  // Solution fonctionnelle sans sécurité
+		//super("/biblio/ouvrage/**");
 	}
 
 	@Override

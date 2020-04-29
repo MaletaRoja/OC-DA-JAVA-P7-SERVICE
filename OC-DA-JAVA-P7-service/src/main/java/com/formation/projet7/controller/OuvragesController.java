@@ -3,6 +3,8 @@ package com.formation.projet7.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +26,7 @@ public class OuvragesController {
 	OuvrageService ouvrageService;
 	
 	@GetMapping("/ouvrage/liste")
-	public List<OuvrageAux> tousLesOuvrages(){
+	public List<OuvrageAux> tousLesOuvrages(HttpServletRequest request){
 		
 		List<Ouvrage> ouvrages = ouvrageService.listerOuvrages();
 		List<OuvrageAux> listeOuvragesAux = new ArrayList<OuvrageAux>();

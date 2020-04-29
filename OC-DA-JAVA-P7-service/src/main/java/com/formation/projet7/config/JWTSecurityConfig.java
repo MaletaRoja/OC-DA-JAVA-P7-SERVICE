@@ -56,15 +56,16 @@ public class JWTSecurityConfig extends WebSecurityConfigurerAdapter {
 		
 		http.csrf().disable()
 		.authorizeRequests()
-		.antMatchers(
-				"/biblio/connexion/"
+		.antMatchers("/biblio/connexion/"  // solution fonctionnelle 1
+			//	"/biblio/connexion/"
 				
 				) 				// toujours autorisée
 		.permitAll()
         .antMatchers(
-        		"/access"
-        		//,"/biblio/**"
-        		) 		 // authentification requise
+        		//"/access"                 // solution fonctionnelle 1
+        		
+        		"/biblio/ouvrage/**") 		 // authentification requise
+        		
         .authenticated()
 		.and()
 		.exceptionHandling().authenticationEntryPoint(entryPoint)
