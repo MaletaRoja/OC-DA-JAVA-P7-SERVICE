@@ -26,8 +26,8 @@ public class JWTAuthenticationFilter extends AbstractAuthenticationProcessingFil
 	}
 */
 	public JWTAuthenticationFilter() {
-		super("/aaaa/**");  // Solution fonctionnelle sans sécurité
-		//super("/biblio/ouvrage/**");
+		//super("/aaaa/**");  // Solution fonctionnelle sans sécurité
+		super("/biblio/ouvrage/**");
 	}
 
 	@Override
@@ -36,7 +36,7 @@ public class JWTAuthenticationFilter extends AbstractAuthenticationProcessingFil
 		
 		String header = request.getHeader(Constants.AUTHORIZATION_HEADER);
 		
-		if (header == null || header.startsWith(Constants.BEARER_TOKEN)) {
+		if (header == null || !header.startsWith(Constants.BEARER_TOKEN)) {
 			
 			throw new RuntimeException("JWT incorrect");
 		}
