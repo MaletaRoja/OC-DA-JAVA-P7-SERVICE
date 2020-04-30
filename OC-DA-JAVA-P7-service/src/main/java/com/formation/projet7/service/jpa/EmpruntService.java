@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import com.formation.projet7.constants.Constants;
 import com.formation.projet7.model.Emprunt;
 import com.formation.projet7.model.EmpruntAux;
+import com.formation.projet7.model.EmpruntAuxMail;
 import com.formation.projet7.model.Exemplaire;
 import com.formation.projet7.model.LigneEmprunt;
 import com.formation.projet7.model.Ouvrage;
@@ -176,6 +177,27 @@ public class EmpruntService implements IEmpruntService {
 		return emprunts;
 	}
 	
+	public List<EmpruntAuxMail> obtenirEmpruntActifParDate(LocalDateTime date){
+		
+		List<Emprunt> emprunts = empruntRepo.findByActifAndFinBefore(true, date);
+		List<EmpruntAuxMail> empruntsAux = new ArrayList<EmpruntAuxMail>();
+		
+		 for (Emprunt em : emprunts) {
+			 
+			 EmpruntAuxMail e = new EmpruntAuxMail();
+			 e.setId(em.getId());
+			 e.setEmprunteur(em.getEmprunteur().getPrenom() + " " + em.getEmprunteur().getNom());
+			 e.setEmail(em.getEmprunteur().getUsername());
+			 e.setTitre(em.getExemplaire().getOuvrage().getTitre());
+			 e.setDebut(em.getDebut());
+			 e.setFin(em.getFin());
+			 
+			 empruntsAux.add(e);
+		 }
+		 
+		return empruntsAux;
+	}
+	
 	
 	// test JPA persistence 
 	
@@ -189,6 +211,8 @@ public class EmpruntService implements IEmpruntService {
 		tx.commit();
 		return emp;
 	}
+	
+	
 
 	
 

@@ -48,7 +48,7 @@ public class OcDaJavaP7Application {
 	*/
 		
 	}
-	
+	/*
 	@Scheduled(initialDelay = 1000L, fixedDelay = 10000L)
 	void scrutation() throws InterruptedException {
 		
@@ -72,4 +72,6 @@ public class OcDaJavaP7Application {
 	class SchedulingConfiguration{
 	
 	}
+	
+	*/
 }
