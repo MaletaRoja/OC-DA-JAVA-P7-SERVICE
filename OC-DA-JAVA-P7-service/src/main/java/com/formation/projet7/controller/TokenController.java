@@ -41,26 +41,29 @@ public class TokenController {
 		System.out.println("**Entrée POST service");
 		Utilisateur jwtUser = new Utilisateur();
 		jwtUser = existUtilisateur(login);
-		
+		/*
 		UtilisateurAux userAux = new UtilisateurAux();
 		userAux.setId(jwtUser.getId()); 
 		userAux.setNom(jwtUser.getNom());
 		userAux.setPrenom(jwtUser.getPrenom());
-		userAux.setRole("ADMIN");
+		userAux.setRole("USER");
 		userAux.setUsername(jwtUser.getUsername());
-		
+		*/
 		if (jwtUser != null) {
 			
-			
-			//return new ResponseEntity<String>(jwtGenerator.generate(jwtUser), HttpStatus.OK);
+			UtilisateurAux userAux = new UtilisateurAux();
+			userAux.setId(jwtUser.getId()); 
+			userAux.setNom(jwtUser.getNom());
+			userAux.setPrenom(jwtUser.getPrenom());
+			userAux.setRole("USER");
+			userAux.setUsername(jwtUser.getUsername());
 			String token = jwtGenerator.generate(jwtUser);
 			userAux.setToken(token);
 			return new ResponseEntity<UtilisateurAux>(userAux, HttpStatus.OK);
-			
-			
+					
 		}else {
 			
-			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+			return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
 		}
 		
 	}
@@ -83,23 +86,7 @@ public class TokenController {
 			System.out.println("Utilisateur non identifié");
 			return null;
 		}
-		
-		
-		
-		/*
-		if (login.getUser().equals("michel@gmail.com") && login.getPassword().equals("michel")) {
-			
-			Utilisateur jwtUser = new Utilisateur();
-			jwtUser.setUsername(login.getUser());
-			jwtUser.setId(22);
-			jwtUser.setRole("Admin");
-			return jwtUser;
-			
-		}else {
-			
-			return null;
-		}  
-		*/
+
 		
 	}
 	

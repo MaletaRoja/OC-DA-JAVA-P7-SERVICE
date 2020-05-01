@@ -26,10 +26,7 @@ public class UtilisateurController {
 
 	@Autowired
 	UserService userService;
-	/*
-	@Autowired 
-	MicroServiceMail microservice;
-	*/
+	
 	
 	@GetMapping("/users")
 	public List<Utilisateur> tousLesUtilisateurs(){
