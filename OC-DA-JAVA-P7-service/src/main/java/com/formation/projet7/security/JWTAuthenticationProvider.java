@@ -1,5 +1,6 @@
 package com.formation.projet7.security;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,17 +10,24 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 
 import com.formation.projet7.model.JWTAuthenticationToken;
 import com.formation.projet7.model.JWTUserDetails;
 import com.formation.projet7.model.Utilisateur;
+import com.formation.projet7.service.IUserService;
 
 @Component
-public class JWTAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider{
+public class JWTAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 	
 	@Autowired
 	private JWTValidator validator;
+	
+	@Autowired
+	private IUserService userService;
+	
 	@Override
 	protected void additionalAuthenticationChecks(UserDetails userDetails,
 			UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
@@ -51,6 +59,7 @@ public class JWTAuthenticationProvider extends AbstractUserDetailsAuthentication
 		return (JWTAuthenticationToken.class.isAssignableFrom(authentication) );
 	}
 
+	
 	
 	
 }

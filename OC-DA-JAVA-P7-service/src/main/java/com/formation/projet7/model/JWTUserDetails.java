@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
+
 
 public class JWTUserDetails implements UserDetails{
 	
@@ -25,7 +27,7 @@ public class JWTUserDetails implements UserDetails{
 		this.authorities = authorities;
 	}
 
-	public JWTUserDetails(Integer id2, String username2, String token2, List<GrantedAuthority> grantedAuthorities) {
+	public JWTUserDetails(Integer id, String username, String token, List<GrantedAuthority> grantedAuthorities) {
 		// TODO Auto-generated constructor stub
 	}
 
