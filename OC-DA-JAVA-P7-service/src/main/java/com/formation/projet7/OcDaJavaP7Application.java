@@ -32,46 +32,9 @@ public class OcDaJavaP7Application {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(OcDaJavaP7Application.class, args);
-	/*	
-		Timer timer = new Timer();
-		TimerTask scrutation = new TimerTask() {
-			
-			@Override
-			public void run() {
-				// TODO Auto-generated method stub
-				System.out.println("Bonjour");
-			}
-		};
-		
-		timer.schedule(scrutation, 0, 2000);
-		
-	*/
+	
 		
 	}
-	/*
-	@Scheduled(initialDelay = 1000L, fixedDelay = 10000L)
-	void scrutation() throws InterruptedException {
-		
-		System.out.println("Now is " + new Date());
-		List<Emprunt> empruntsActifs = empruntService.obtenirEmpruntsActif();
-		System.out.println("Nbre d'emprunts actifs: " + empruntsActifs.size());
-		Emprunt em = empruntsActifs.get(0);
-		if (em.getFin().isBefore(LocalDateTime.now()) ){
-			
-			System.out.println("Alerte!");
-			//microServiceMail.sendSimpleEmail();
-		}
-				
-		Thread.sleep(5000L);
 	
-	}
 	
-	@Configuration
-	@EnableScheduling
-	@ConditionalOnProperty(name = "scheduling.enabled", matchIfMissing = true)
-	class SchedulingConfiguration{
-	
-	}
-	
-	*/
 }
