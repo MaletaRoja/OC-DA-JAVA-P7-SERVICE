@@ -8,12 +8,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.formation.projet7.model.Ouvrage;
 import com.formation.projet7.model.Utilisateur;
-import com.formation.projet7.repository.UserRepo;
+import com.formation.projet7.model.UtilisateurAux;
 import com.formation.projet7.service.jpa.UserService;
 
 @RestController
@@ -22,6 +22,7 @@ public class UtilisateurController {
 
 	@Autowired
 	UserService userService;
+	
 	
 	@GetMapping("/users")
 	public List<Utilisateur> tousLesUtilisateurs(){
@@ -37,4 +38,19 @@ public class UtilisateurController {
 		Utilisateur user = userService.obtenirUser(id);
 		return new ResponseEntity<>(user, HttpStatus.OK);
 	}
+	
+	@PostMapping("compte/")
+	public void creerCompte (@RequestBody UtilisateurAux user) {
+		
+		Utilisateur utilisateur = new Utilisateur();
+		utilisateur.setPrenom(user.getPrenom());
+		utilisateur.setNom(user.getNom());
+		utilisateur.setPassword(user.getToken());
+		utilisateur.setRole(user.getRole());
+		utilisateur.setUsername(user.getUsername());
+		utilisateur.setEnabled(true);
+		userService.ajouterUser(utilisateur);
+		
+	}
+	
 }

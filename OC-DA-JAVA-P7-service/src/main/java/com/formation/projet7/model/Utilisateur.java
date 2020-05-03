@@ -23,6 +23,9 @@ public class Utilisateur implements Serializable {
 	private String prenom;
 	private String username;
 	private String password;
+
+	private boolean enabled;
+
 	private String role;
 	
 	@JsonIgnore
@@ -39,14 +42,18 @@ public class Utilisateur implements Serializable {
 	}
 
 
-	public Utilisateur(Integer id, String nom, String prenom, String username, String password, String role,
-			List<Emprunt> emprunts) {
+	public Utilisateur(Integer id, String nom, String prenom, String username, String password, boolean enabled,
+			String role, List<Emprunt> emprunts) {
+
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.username = username;
 		this.password = password;
+
+		this.enabled = enabled;
+
 		this.role = role;
 		this.emprunts = emprunts;
 	}
@@ -102,15 +109,21 @@ public class Utilisateur implements Serializable {
 	}
 
 
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	public String getRole() {
 		return role;
 	}
 
-
 	public void setRole(String role) {
 		this.role = role;
 	}
-
 
 	public List<Emprunt> getEmprunts() {
 		return emprunts;

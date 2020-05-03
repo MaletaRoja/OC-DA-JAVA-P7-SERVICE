@@ -13,5 +13,7 @@ public interface OuvrageRepo extends JpaRepository<Ouvrage, Integer> {
 	
 	@Query(value = "SELECT DISTINCT genre FROM ouvrage", nativeQuery = true)
 	List<String> findRubriques();
+	
+	List<Ouvrage> findByGenre(String genre);
 
 }

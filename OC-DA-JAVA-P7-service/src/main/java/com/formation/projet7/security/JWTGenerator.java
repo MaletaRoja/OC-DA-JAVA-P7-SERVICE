@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import com.formation.projet7.constants.Constants;
 import com.formation.projet7.model.Utilisateur;
 
+import com.formation.projet7.model.UtilisateurAux;
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -25,5 +27,8 @@ public class JWTGenerator {
 				.signWith(SignatureAlgorithm.HS256, Constants.YOUR_SECRET)
 				.compact();
 	}
+
+	
+
 
 }

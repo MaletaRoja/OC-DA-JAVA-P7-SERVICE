@@ -5,7 +5,9 @@ import javax.persistence.Column;
 import org.springframework.stereotype.Component;
 
 import com.formation.projet7.constants.Constants;
-import com.formation.projet7.model.JWTUserDetails;
+
+
+
 import com.formation.projet7.model.Utilisateur;
 
 import io.jsonwebtoken.Claims;

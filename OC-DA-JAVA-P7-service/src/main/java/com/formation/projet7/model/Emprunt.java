@@ -1,6 +1,7 @@
 package com.formation.projet7.model;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import javax.persistence.Entity;
@@ -25,8 +26,8 @@ public class Emprunt implements Serializable {
 	@ManyToOne
 	private Utilisateur emprunteur;
 
-	private Date debut;
-	private Date fin;
+	private LocalDateTime debut;
+	private LocalDateTime fin;
 	private boolean prolongation; 
 	private boolean actif;
 	
@@ -36,7 +37,7 @@ public class Emprunt implements Serializable {
 		
 	}
 
-	public Emprunt(Integer id, Exemplaire exemplaire, Utilisateur emprunteur, Date debut, Date fin,
+	public Emprunt(Integer id, Exemplaire exemplaire, Utilisateur emprunteur, LocalDateTime debut, LocalDateTime fin,
 			boolean prolongation, boolean actif) {
 		super();
 		this.id = id;
@@ -72,19 +73,19 @@ public class Emprunt implements Serializable {
 		this.emprunteur = emprunteur;
 	}
 
-	public Date getDebut() {
+	public LocalDateTime getDebut() {
 		return debut;
 	}
 
-	public void setDebut(Date debut) {
+	public void setDebut(LocalDateTime debut) {
 		this.debut = debut;
 	}
 
-	public Date getFin() {
+	public LocalDateTime getFin() {
 		return fin;
 	}
 
-	public void setFin(Date fin) {
+	public void setFin(LocalDateTime fin) {
 		this.fin = fin;
 	}
 

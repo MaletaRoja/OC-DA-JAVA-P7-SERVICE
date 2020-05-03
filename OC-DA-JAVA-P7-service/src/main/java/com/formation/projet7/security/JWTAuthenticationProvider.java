@@ -16,10 +16,13 @@ import com.formation.projet7.model.JWTUserDetails;
 import com.formation.projet7.model.Utilisateur;
 
 @Component
-public class JWTAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider{
+
+public class JWTAuthenticationProvider extends AbstractUserDetailsAuthenticationProvider {
 	
 	@Autowired
 	private JWTValidator validator;
+	
+	
 	@Override
 	protected void additionalAuthenticationChecks(UserDetails userDetails,
 			UsernamePasswordAuthenticationToken authentication) throws AuthenticationException {
@@ -50,6 +53,8 @@ public class JWTAuthenticationProvider extends AbstractUserDetailsAuthentication
 		
 		return (JWTAuthenticationToken.class.isAssignableFrom(authentication) );
 	}
+
+	
 
 	
 	
