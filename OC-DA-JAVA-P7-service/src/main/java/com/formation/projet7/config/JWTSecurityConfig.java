@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -15,16 +16,20 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.AuthenticationFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Component;
 
 import com.formation.projet7.model.JWTUserDetails;
 import com.formation.projet7.security.JWTAuthenticationEntryPoint;
+
 import com.formation.projet7.security.JWTAuthenticationFilter;
 import com.formation.projet7.security.JWTAuthenticationProvider;
 import com.formation.projet7.security.JWTSuccesHandler;
+import com.formation.projet7.security.UserDetailsServiceImp;
 
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @EnableWebSecurity
@@ -33,21 +38,26 @@ import com.formation.projet7.security.JWTSuccesHandler;
 public class JWTSecurityConfig extends WebSecurityConfigurerAdapter {
 
 	
-	@Autowired 
-	PasswordEncoder passwordEncoder;
+	@Autowired
+	private UserDetailsService userDetailsService;
 	
-	@Autowired
-	private JWTAuthenticationProvider authenticationProvider;
+	@Autowired 
+	private PasswordEncoder passwordEncoder;
+	
+	//@Autowired
+	//private JWTAuthenticationProvider authenticationProvider;
 
-	@Autowired
-	private JWTAuthenticationEntryPoint entryPoint;
-
+	//@Autowired
+	//private JWTAuthenticationEntryPoint entryPoint;
+	
+	/*
 	@Bean
 	public AuthenticationManager authenticationManager() {
 
 		return new ProviderManager(Collections.singletonList(authenticationProvider));
 	}
-
+	*/
+	/*
 	@Bean
 	public JWTAuthenticationFilter authenticationTokenFilter() {
 
@@ -56,35 +66,26 @@ public class JWTSecurityConfig extends WebSecurityConfigurerAdapter {
 		filter.setAuthenticationSuccessHandler(new JWTSuccesHandler());
 		return filter;
 	}
-	
-	//////////////////////////////////////////////////////////
-	
-	///        Configuration password encoder
-	
-	//////////////////////////////////////////////////////////
-	/*
+	*/
+
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		
-		 auth.userDetailsService(jwtUserDelails).passwordEncoder(passwordEncoder);
+		 auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
 	}
-	*/
+	
 	
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		http.csrf().disable().authorizeRequests().antMatchers("/biblio/connexion/" // solution fonctionnelle 1
-
-		) // toujours autorisée
-				.permitAll().antMatchers("/biblio/access" // solution fonctionnelle 1
-						, "/biblio/ouvrage/**") // authentification requise
-
-				.authenticated().and().exceptionHandling().authenticationEntryPoint(entryPoint).and()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-		http.addFilterBefore(authenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-		http.headers().cacheControl();
+		http.csrf().disable();
+		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		http.authorizeRequests().antMatchers("/biblio/connexion/").permitAll();
+		http.authorizeRequests().antMatchers("/biblio/ouvrage/**").authenticated();
+		http.addFilter(new JWTAuthenticationFilter(authenticationManager()));
+		http.addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);		
+		
 	}
 
 	@Bean
