@@ -38,14 +38,7 @@ public class TokenController {
 		System.out.println("**Entrée POST service");
 		Utilisateur jwtUser = new Utilisateur();
 		jwtUser = existUtilisateur(login);
-		/*
-		UtilisateurAux userAux = new UtilisateurAux();
-		userAux.setId(jwtUser.getId()); 
-		userAux.setNom(jwtUser.getNom());
-		userAux.setPrenom(jwtUser.getPrenom());
-		userAux.setRole("USER");
-		userAux.setUsername(jwtUser.getUsername());
-		*/
+		
 		if (jwtUser != null) {
 			
 			UtilisateurAux userAux = new UtilisateurAux();
