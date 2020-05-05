@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.formation.projet7.model.Ouvrage;
 import com.formation.projet7.model.OuvrageAux;
+import com.formation.projet7.model.Utilisateur;
 import com.formation.projet7.repository.OuvrageRepo;
 import com.formation.projet7.service.IOuvrageService;
 
@@ -72,6 +73,33 @@ public class OuvrageService implements IOuvrageService {
 			
 		}
 			return listeOuvragesAux; 
+	}
+	
+	public List<OuvrageAux> rechercherSimple (String phrase){
+		
+		System.out.println("Phrase: " + phrase);
+		List<Ouvrage> ouvrages = ouvrageRepo.findByPhraseLike(phrase);
+		List<OuvrageAux> ouvragesAux = obtenirOuvragesAux(ouvrages);
+		return ouvragesAux;
+	}
+	
+	
+	
+	String convertString(String phrase) {
+
+		try {
+			char car0 = phrase.charAt(0);
+			String stringCar0 = String.valueOf(car0);
+			String stringCar0Low = stringCar0.toUpperCase();
+			String reste = phrase.substring(1);
+			String phrase1 = stringCar0Low + reste + "%";
+			System.out.println("phrase1: " + phrase1);
+			return phrase1;
+
+		} catch (StringIndexOutOfBoundsException e) {
+
+			return "StringIndexOutOfBoundsException";
+		}
 	}
 	
 

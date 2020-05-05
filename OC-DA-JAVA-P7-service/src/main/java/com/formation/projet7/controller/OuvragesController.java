@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.formation.projet7.model.EmpruntAuxMail;
 import com.formation.projet7.model.Ouvrage;
 import com.formation.projet7.model.OuvrageAux;
+import com.formation.projet7.model.Utilisateur;
+import com.formation.projet7.repository.OuvrageRepo;
+import com.formation.projet7.repository.UserRepo;
 import com.formation.projet7.service.jpa.EmpruntService;
 import com.formation.projet7.service.jpa.OuvrageService;
 
@@ -25,6 +28,12 @@ public class OuvragesController {
 	
 	@Autowired
 	OuvrageService ouvrageService;
+	
+	@Autowired
+	UserRepo userRepo;
+	
+	@Autowired
+	OuvrageRepo ouvrageRepo;
 	
 	@Autowired
 	EmpruntService empruntService;
@@ -73,6 +82,23 @@ public class OuvragesController {
 		System.out.println("Taille liste des emprunts envoyés au service mail: " + empruntsAux.size());
 		return empruntsAux;
 	}
+	
+	@GetMapping("/recherche/simple/{phrase}")
+	public List<OuvrageAux> rechercheSimple(@RequestHeader("Authorization") String token, @PathVariable  String phrase){
+	
+		System.out.println("Phrase: " + phrase);
+		List<OuvrageAux> ouvrages = ouvrageService.rechercherSimple(phrase);
+		
+		
+		System.out.println("Taille liste ouvrages: " + ouvrages.size());
+		for (OuvrageAux o : ouvrages) {
+			
+			System.out.println("Titre: " + o.getTitre());
+		}
+		
+		return ouvrages;
+	}
+	
 	
 	
 

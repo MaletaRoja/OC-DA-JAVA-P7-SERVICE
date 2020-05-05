@@ -7,13 +7,14 @@ import com.formation.projet7.model.Utilisateur;
 
 public interface UserRepo extends JpaRepository<Utilisateur, Integer> {
 	
-	@Query(value = "select * from user u where u.nom like ?1 or u.prenom like ?1", nativeQuery = true)
-	Utilisateur findByIdentity(String string);
 
 	Utilisateur findByUsername(String email);
 	
 	Utilisateur findByUsernameAndPassword(String username,String password);
-
+	
+	@Query("select u from Utilisateur u where u.nom = ?1 or u.prenom = ?1")
+	  Utilisateur findByIdentity(String nom);
 	
 
+	
 }
