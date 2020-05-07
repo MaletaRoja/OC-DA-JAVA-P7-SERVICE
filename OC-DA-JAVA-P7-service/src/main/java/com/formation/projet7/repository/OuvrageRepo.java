@@ -32,4 +32,7 @@ public interface OuvrageRepo extends JpaRepository<Ouvrage, Integer> {
 	
 	@Query("SELECT o FROM Ouvrage o WHERE o.auteur_nom  LIKE %:phrase% OR o.auteur_prenom  LIKE %:phrase% OR o.titre LIKE %:phrase% OR o.genre LIKE %:phrase%")
 	List<Ouvrage> findByPhraseLike(@Param("phrase") String phrase);
+	
+	@Query("SELECT o FROM Ouvrage o WHERE o.auteur_nom  LIKE %:phrase OR o.auteur_prenom  LIKE %:phrase OR o.titre LIKE %:phrase OR o.genre LIKE %:phrase")
+	List<Ouvrage> findByPhraseStartLike(@Param("phrase") String phrase);
 }

@@ -1,7 +1,10 @@
 package com.formation.projet7.service.jpa;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -77,12 +80,20 @@ public class OuvrageService implements IOuvrageService {
 	
 	public List<OuvrageAux> rechercherSimple (String phrase){
 		
+		 
 		System.out.println("Phrase: " + phrase);
-		List<Ouvrage> ouvrages = ouvrageRepo.findByPhraseLike(phrase);
+		String phrase1 = convertString(phrase);
+		List<Ouvrage> ouvrages = ouvrageRepo.findByPhraseStartLike(phrase1);
+		//listeOuvrages.addAll(ouvrages);
+		List<Ouvrage> ouvrages2 = ouvrageRepo.findByPhraseLike(phrase);
+		//listeOuvrages.addAll(ouvrages2);
+		ouvrages.addAll(ouvrages2);
 		List<OuvrageAux> ouvragesAux = obtenirOuvragesAux(ouvrages);
-		return ouvragesAux;
+		Set<OuvrageAux> listeOuvrages = new HashSet<OuvrageAux>(ouvragesAux);
+		List<OuvrageAux> resultats = new ArrayList<OuvrageAux>(listeOuvrages);
+		
+		return resultats;
 	}
-	
 	
 	
 	String convertString(String phrase) {
