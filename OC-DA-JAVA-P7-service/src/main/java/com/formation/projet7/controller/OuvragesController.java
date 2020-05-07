@@ -20,7 +20,7 @@ import com.formation.projet7.service.jpa.EmpruntService;
 import com.formation.projet7.service.jpa.OuvrageService;
 
 @RestController
-@RequestMapping("/biblio")
+//@RequestMapping("/biblio")
 public class OuvragesController {
 	
 	@Autowired

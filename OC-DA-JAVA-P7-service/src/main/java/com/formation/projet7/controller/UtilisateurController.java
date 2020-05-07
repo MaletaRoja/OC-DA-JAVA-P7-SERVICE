@@ -17,7 +17,7 @@ import com.formation.projet7.model.UtilisateurAux;
 import com.formation.projet7.service.jpa.UserService;
 
 @RestController
-@RequestMapping("/biblio")
+//@RequestMapping("/biblio")
 public class UtilisateurController {
 
 	@Autowired
