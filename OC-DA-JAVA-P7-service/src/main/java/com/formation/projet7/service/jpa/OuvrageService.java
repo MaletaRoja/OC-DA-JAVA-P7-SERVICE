@@ -1,7 +1,9 @@
 package com.formation.projet7.service.jpa;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -72,6 +74,41 @@ public class OuvrageService implements IOuvrageService {
 			
 		}
 			return listeOuvragesAux; 
+	}
+	
+	public List<OuvrageAux> rechercherSimple (String phrase){
+		
+		 
+		System.out.println("Phrase: " + phrase);
+		String phrase1 = convertString(phrase);
+		List<Ouvrage> ouvrages = ouvrageRepo.findByPhraseStartLike(phrase1);
+		//listeOuvrages.addAll(ouvrages);
+		List<Ouvrage> ouvrages2 = ouvrageRepo.findByPhraseLike(phrase);
+		//listeOuvrages.addAll(ouvrages2);
+		ouvrages.addAll(ouvrages2);
+		List<OuvrageAux> ouvragesAux = obtenirOuvragesAux(ouvrages);
+		Set<OuvrageAux> listeOuvrages = new HashSet<OuvrageAux>(ouvragesAux);
+		List<OuvrageAux> resultats = new ArrayList<OuvrageAux>(listeOuvrages);
+		
+		return resultats;
+	}
+	
+	
+	String convertString(String phrase) {
+
+		try {
+			char car0 = phrase.charAt(0);
+			String stringCar0 = String.valueOf(car0);
+			String stringCar0Low = stringCar0.toUpperCase();
+			String reste = phrase.substring(1);
+			String phrase1 = stringCar0Low + reste + "%";
+			System.out.println("phrase1: " + phrase1);
+			return phrase1;
+
+		} catch (StringIndexOutOfBoundsException e) {
+
+			return "StringIndexOutOfBoundsException";
+		}
 	}
 	
 

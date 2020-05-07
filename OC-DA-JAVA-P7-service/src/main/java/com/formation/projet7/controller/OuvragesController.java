@@ -74,6 +74,21 @@ public class OuvragesController {
 		return empruntsAux;
 	}
 	
+	@GetMapping("/recherche/simple/{phrase}")
+	public List<OuvrageAux> rechercheSimple(@RequestHeader("Authorization") String token, @PathVariable  String phrase){
+	
+		System.out.println("Phrase: " + phrase);
+		List<OuvrageAux> ouvrages = ouvrageService.rechercherSimple(phrase);
+		
+		
+		System.out.println("Taille liste ouvrages: " + ouvrages.size());
+		for (OuvrageAux o : ouvrages) {
+			
+			System.out.println("Titre: " + o.getTitre());
+		}
+		
+		return ouvrages;
+	}
 	
 
 }
