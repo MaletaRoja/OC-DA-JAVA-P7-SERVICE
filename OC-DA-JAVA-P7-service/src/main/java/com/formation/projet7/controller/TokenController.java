@@ -33,7 +33,7 @@ public class TokenController {
 		this.jwtGenerator = jwtGenerator;
 	}
 	
-	@PostMapping("connexion/")
+	@PostMapping("/connexion")
 	public ResponseEntity<UtilisateurAux> generate(@RequestBody final Login login){
 		
 		System.out.println("**Entrée POST service");
