@@ -36,6 +36,9 @@ public class EmpruntController {
 
 	@Autowired
 	UserService userService;
+	
+	@Autowired
+	ExemplaireService exemplaireService;
 
 	@PostMapping("/emprunts/{id}")
 	public ResponseEntity<?> tousLesEmprunts(@PathVariable Integer id) {
