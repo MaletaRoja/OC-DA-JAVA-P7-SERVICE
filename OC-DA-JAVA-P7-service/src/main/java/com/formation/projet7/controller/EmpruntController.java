@@ -120,6 +120,19 @@ public class EmpruntController {
 		empruntService.saveEmprunt(emprunt);
 	}
 	
+	@GetMapping("/retourner/{id}")
+	void retourner(@PathVariable  Integer id) {
+		
+		Emprunt emprunt = empruntService.obtenirEmpruntParId(id);
+		emprunt.setActif(false);
+	
+		Exemplaire exemplaire = emprunt.getExemplaire();
+		exemplaire.setDisponible(true);
+		exemplaireService.modifierExemplaire(exemplaire);
+		
+		
+	}
+	
 	// test récupération d'un emprunt par méthode JPA persistance
 	
 	@GetMapping("/get")
