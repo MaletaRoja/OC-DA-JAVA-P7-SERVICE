@@ -23,6 +23,7 @@ import com.formation.projet7.model.Utilisateur;
 import com.formation.projet7.model.LigneEmprunt;
 import com.formation.projet7.model.Ouvrage;
 import com.formation.projet7.service.jpa.EmpruntService;
+import com.formation.projet7.service.jpa.ExemplaireService;
 import com.formation.projet7.service.jpa.UserService;
 import com.formation.projet7.constants.Constants;
 
